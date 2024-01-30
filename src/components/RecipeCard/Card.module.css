@@ -1,0 +1,146 @@
+/* RecipeCard.module.css */
+.recipe {
+    border: 1px solid #eee;
+    padding: 0;
+    max-width: 700px;
+    margin: auto;
+    margin-top: 1.5rem;
+    border-radius: var(--mantine-radius-md);
+  }
+  
+.recipe__img {
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  }
+
+  
+  .recipe__header {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding: 1rem 1rem 2rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .recipe__title {
+    flex: 1;
+  }
+  
+  .recipe__title h1 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .recipe__title p {
+    margin-bottom: 0.75rem;
+  }
+  
+  .recipe__times {
+    text-align: right;
+    width: 150px;
+  }
+  
+  .recipe__times .heading {
+    margin-bottom: 0.25rem;
+  }
+  
+  .recipe__times .bold {
+    font-weight: bold;
+  }
+  
+  .recipe__share {
+    position: absolute;
+    top: -3rem;
+    right: 1rem;
+  }
+  
+  .recipe__content {
+    padding: 1rem;
+  }
+  
+  .recipe__ingredients {
+    margin-top: 1rem;
+  }
+  
+  .recipe__ingredients li {
+    list-style-type: none;
+  }
+  
+  .recipe__ingredients label {
+    cursor: pointer;
+    &:hover {
+      color: #3298dc;
+    }
+  }
+
+  .recipe__ingredients__list {
+    padding-inline-start: 0px;
+  }
+  
+  .recipe__ingredients input {
+    appearance: none;
+    position: relative;
+  }
+  
+  .recipe__ingredients input::before {
+    color: #666;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f0c8';
+    margin-right: 0.25rem;
+  }
+  
+  .recipe__ingredients input:checked ~ span {
+    font-style: italic;
+    color: #666;
+    text-decoration: line-through;
+  }
+  
+  .recipe__ingredients input:checked::before {
+    content: '\f14a';
+  }
+  
+  .optional {
+    font-style: italic;
+  }
+  
+  .recipe__directions {
+    margin-top: 1.5rem;
+  }
+  
+  .recipe__directions ol {
+    list-style: decimal;
+    padding-left: 2rem;
+  }
+  
+  .recipe__directions li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .recipe__directions footer {
+    margin-top: 1.5rem;
+  }
+  
+  .recipe__directions footer h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .recipe__directions footer p {
+    margin-bottom: 0;
+  }
+  
+  .notification {
+    background-color: #fff;
+    border: 1px solid #eee;
+  }
+  
+  .italic {
+    font-style: italic;
+  }
+  
+  .deleteBtn .inner {
+    gap: 10rem;
+  }
