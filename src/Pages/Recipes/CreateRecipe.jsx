@@ -19,9 +19,8 @@ function CreateRecipe() {
 
   const [newIngredient, setNewIngredient] = useState({
     name: "",
-    quantity: 0,
-    // unit: "gram",
-    isManualUnit: false,
+    quantity: "",
+    // isManualUnit: false,
   });
 
   const [customUnit, setCustomUnit] = useState("");
@@ -34,19 +33,19 @@ function CreateRecipe() {
     mealTypes: ["Breakfast", "Lunch", "Dinner", "Snack", "Appetizer", "Dessert", "Main Dish" , "Stew", "Wrap", "Bowl", "Curry"],
   };
 
-  const measurementUnits = [
-    "gr",
-    "kg",
-    "ml",
-    "ltr",
-    "cup",
-    "tsp",
-    "tbsp",
-    "pinch",
-    "handful",
-    "piece",
-    "whole"
-  ];
+  // const measurementUnits = [
+  //   "gr",
+  //   "kg",
+  //   "ml",
+  //   "ltr",
+  //   "cup",
+  //   "tsp",
+  //   "tbsp",
+  //   "pinch",
+  //   "handful",
+  //   "piece",
+  //   "whole"
+  // ];
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -73,29 +72,31 @@ function CreateRecipe() {
 
   const handleNewIngredientChange = (e) => {
     const { name, value } = e.target;
-    if (name === "unit" && value === "manualUnit") {
-      setNewIngredient({ ...newIngredient, unit: value , isManualUnit: true });
-    } else {
-      setNewIngredient({ ...newIngredient, [name]: value });
-    }
+    setNewIngredient({ ...newIngredient, [name]: value })
+    // if (name === "unit" && value === "manualUnit") {
+    //   setNewIngredient({ ...newIngredient, unit: value , isManualUnit: true });
+    // } else {
+    //   setNewIngredient({ ...newIngredient, [name]: value });
+    // }
   };
 
-  const handleCustomUnitChange = (e) => {
-    const { name , value} = e.target
-    setCustomUnit(value);
-    setNewIngredient({ ...newIngredient, unit: value });
-  };
+  // const handleCustomUnitChange = (e) => {
+  //   const { name , value} = e.target
+  //   //setCustomUnit(value);
+  //   setNewIngredient({ ...newIngredient, unit: value });
+  // };
 
   const handleNewIngredientSubmit = () => {
     const updatedIngredients = [...recipeData.ingredients, newIngredient];
-    setRecipeData({ ...recipeData, ingredients: updatedIngredients });
+    setRecipeData({ ...recipeData, ingredients: updatedIngredients })
+    setNewIngredient({ name: "", quantity: ""});
     console.log (newIngredient)
-    if (newIngredient.unit === "manualUnit") {
-      setNewIngredient({ name: "", quantity: 0, unit: "gram", isManualUnit: true });
-    }else {
-      setNewIngredient({ name: "", quantity: 0, unit: "gram", isManualUnit: false });
-    }    
-    setCustomUnit("");
+    // if (newIngredient.unit === "manualUnit") {
+    //   setNewIngredient({ name: "", quantity: 0, unit: "gram", isManualUnit: true });
+    // }else {
+    //   setNewIngredient({ name: "", quantity: 0, unit: "gram", isManualUnit: false });
+    // }    
+    // setCustomUnit("");
   };
 
   const handleNewInstructionChange = (e) => {
@@ -153,9 +154,9 @@ function CreateRecipe() {
     <div>
       <h1>Create Recipe</h1>
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" , width: 'fit-content'}}>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name"><h4>Name</h4></label>
         <input type="text" name="name" id="name" value={recipeData.name} onChange={handleChange} />
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description"><h4>Description</h4></label>
         <input
           type="text"
           name="description"
@@ -163,28 +164,20 @@ function CreateRecipe() {
           value={recipeData.description}
           onChange={handleChange}
         />
-        <label htmlFor="image">Image</label>
+        <label htmlFor="image"><h4>Image</h4></label>
         <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" />
 
         {/* Ingredients */}
         <div>
-        <h3>Ingredients</h3>
+        <h4>Ingredients List:</h4>
         <ul>
           {recipeData.ingredients.map((ingredient, index) => (
-            <li key={index}><span>{`${ingredient.quantity} ${ingredient.quantity > 1 ? `${ingredient.unit}s` : `${ingredient.unit}`} of ${ingredient.name}`}</span><button type="button" onClick={() => handleIngredientDelete(index)}>Delete</button></li>
+            <li key={index}><span>{`${ingredient.quantity} of ${ingredient.name}`}</span><button type="button" onClick={() => handleIngredientDelete(index)}>Delete</button></li>
           ))}
         </ul>
 
         {/* Ingredient input form */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2px" , width: 'fit-content'}}>
-          <label htmlFor="ingredient">Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={newIngredient.name}
-            onChange={handleNewIngredientChange}
-            placeholder="Ingredient"
-          />
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" , width: 'fit-content'}}>
           <label htmlFor="quantity">Quantity:</label>
           <input
             type="text"
@@ -193,7 +186,15 @@ function CreateRecipe() {
             onChange={handleNewIngredientChange}
             placeholder="Quantity"
           />
-          <label htmlFor="unit">Unit:</label>
+          <label htmlFor="ingredient">Ingredient:</label>
+          <input
+            type="text"
+            name="name"
+            value={newIngredient.name}
+            onChange={handleNewIngredientChange}
+            placeholder="Ingredient"
+          />
+          {/* <label htmlFor="unit">Unit:</label>
           <select name="unit" defaultValue={newIngredient.unit} onChange={handleNewIngredientChange} >
             {measurementUnits.map((unit) => (
               <option key={unit} value={unit}>{unit}</option>
@@ -208,7 +209,7 @@ function CreateRecipe() {
               onChange={handleCustomUnitChange}
               placeholder="Custom Unit"
             />
-          )}
+          )} */}
           <button type="button" onClick={handleNewIngredientSubmit}>Add Ingredient</button>
         </div>
       </div>
@@ -216,7 +217,7 @@ function CreateRecipe() {
 
         {/* Instructions */}
         <div>
-        <h3>Instructions</h3>
+        <h4>Instructions</h4>
         <ol>
           {recipeData.instructions.map((instruction, index) => (
             <li key={index}><span>{instruction}</span><button type="button" onClick={() => handleInstructionDelete(index)}>Delete</button></li>
