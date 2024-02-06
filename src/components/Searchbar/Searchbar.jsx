@@ -14,7 +14,7 @@ function Searchbar({search , setSearch}) {
 
   return ( 
     <>
-      <Container  m={100}>
+      <Container  m={50}>
         <Flex
           direction={{ base: "column", sm: "row" }}
           gap="sm"

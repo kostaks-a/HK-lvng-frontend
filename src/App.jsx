@@ -11,19 +11,21 @@ import CreateUser from './Pages/User/CreateUser'
 import UpdateUser from './Pages/User/UpdateUser'
 import LoginPage from './Pages/User/LoginPage'
 import PrivateWrapper from './components/PrivateWrapper'
-import { AppShell, Burger, Group, UnstyledButton } from '@mantine/core';
+import { AppShell, BackgroundImage, Image, Burger, Group, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './styles/Header.module.css';
 import { Link } from 'react-router-dom';
-import { useContext } from "react";              
+import { useContext, useState } from "react";              
 import { AuthContext } from "./context/auth.context";
 import { IconHomeHeart } from '@tabler/icons-react'
 import Dashboard from './Pages/Dashboard'
 import GuestWrapper from './components/GuestWrapper'
+import PublicProfile from './Pages/User/PublicProfile'
 
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
+  const [searchBarVisible, setSearchBarVisible] = useState(true);
   const { isLoggedIn, user , logOutUser } = useContext(AuthContext); 
 
   const location = useLocation();
@@ -41,7 +43,7 @@ function App() {
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>
           <Link to='/'><IconHomeHeart size={40} strokeWidth={1} color={'white'} /></Link>
-          <UnstyledButton className={classes.control}><Link to="/signup">Search for recipes</Link></UnstyledButton>
+          <UnstyledButton className={classes.control}><Link to="/recipes">Search for recipes</Link></UnstyledButton>
             <Group ml="xl" gap={30} visibleFrom="sm">
               <UnstyledButton className={classes.control}><Link to="/dashboard">Dashboard</Link></UnstyledButton>
               {!isLoggedIn ? (<>
@@ -58,23 +60,28 @@ function App() {
       </AppShell.Header>
 
       <AppShell.Navbar py="md" px={4}>
-        <UnstyledButton className={classes.control}>Home</UnstyledButton>
-        <UnstyledButton className={classes.control}>Blog</UnstyledButton>
-        <UnstyledButton className={classes.control}>Contacts</UnstyledButton>
-        <UnstyledButton className={classes.control}>Support</UnstyledButton>
+       <UnstyledButton className={classes.control}><Link to="/recipes">Search for recipes</Link></UnstyledButton>
+       <UnstyledButton className={classes.control}><Link to="/dashboard">Dashboard</Link></UnstyledButton>
+       {!isLoggedIn ? (<>
+              <UnstyledButton className={classes.control}><Link to="/signup">Signup</Link></UnstyledButton>
+              <UnstyledButton className={classes.control}><Link to="/login">Login</Link></UnstyledButton>              
+              </>) : (<>
+                <UnstyledButton className={classes.control} onClick={logOutUser}><Link>Log out</Link></UnstyledButton>
+                {/* <UnstyledButton className={classes.control}><Link>{user.username}</Link></UnstyledButton> */}
+              </>)}
       </AppShell.Navbar>
 
-      <AppShell.Main>
+      <AppShell.Main p={0}>
       <Routes >
         <Route path="/" element={<Homepage />} />
-        <Route path="/dashboard/*" element={<PrivateWrapper><Dashboard/></PrivateWrapper>} />
-        <Route path="/recipes" element= {<AllRecipes />} />
-        <Route path='/recipes/create' element={<PrivateWrapper> <CreateRecipe/> </PrivateWrapper>} />
-        <Route path= '/recipes/:id' element={<RecipeDetails />} />
-        <Route path = '/recipes/:id/edit' element={<PrivateWrapper> <UpdateRecipe/> </PrivateWrapper>}/>
-        <Route path = '/signup' element={<GuestWrapper> <CreateUser/></GuestWrapper>} /> 
-        <Route path = '/login' element={<GuestWrapper> <LoginPage/></GuestWrapper>} /> 
-        <Route path = '/users/:id' element={<UpdateUser />} />
+        <Route path="/dashboard/*" element={<PrivateWrapper><Dashboard /></PrivateWrapper>} />
+        <Route path="/recipes" element= {<PrivateWrapper><AllRecipes /></PrivateWrapper>} />
+        {/* <Route path='/recipes/create' element={<PrivateWrapper> <CreateRecipe/> </PrivateWrapper>} /> */}
+        <Route path='/recipes/:id' element={<PrivateWrapper> <RecipeDetails/> </PrivateWrapper>} />
+        {/* <Route path = '/recipes/:id/edit' element={<PrivateWrapper> <UpdateRecipe/> </PrivateWrapper>}/> */}
+        <Route path='/signup' element={<GuestWrapper> <CreateUser/></GuestWrapper>} /> 
+        <Route path='/login' element={<GuestWrapper> <LoginPage/></GuestWrapper>} />
+        <Route path='profile/:username' element={<PrivateWrapper><PublicProfile /></PrivateWrapper>}/>  
         
         <Route path="*" element={<h1>404</h1>} />
       </Routes>

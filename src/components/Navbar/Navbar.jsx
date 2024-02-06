@@ -30,6 +30,7 @@ import NavbarLink from './NavbarLink';
 function Navbar( {toggleSearchBar} ) {
   const [active, setActive] = useState(2);
 
+
   const handleSearchBarToggle = (label) => {
     if (label.includes('Search')) {
       toggleSearchBar();
@@ -41,11 +42,11 @@ function Navbar( {toggleSearchBar} ) {
     { icon: IconSearch, label: 'Search recipes' , onClick: handleSearchBarToggle },
     { icon: IconMushroomFilled, label: 'Create recipe' ,path:'./recipes/create'},
     { icon: IconBowl, label: 'Recipes' , path:'./recipes'},
-    { icon: IconPizza, label: 'Favourites' },
-    { icon: IconCalculator, label: 'Calculator' },
-    { icon: IconUser, label: 'Account' },
-    { icon: IconChefHat, label: 'Profile' },
-    { icon: IconSettings, label: 'Settings' },
+    { icon: IconPizza, label: 'Favourites' , path:'./favourites'},
+    { icon: IconCalculator, label: 'Calculator' , path:'./calculator'},
+    // { icon: IconUser, label: 'Account' , path:'./account'},
+    { icon: IconChefHat, label: 'Profile' , path:'./profile'},
+    // { icon: IconSettings, label: 'Settings' },
   ];
 
   const links = linkData.map((link, index) => (

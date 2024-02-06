@@ -10,13 +10,18 @@ import UpdateRecipe from "./Recipes/UpdateRecipe";
 import CreateRecipe from "./Recipes/CreateRecipe";
 import Searchbar from "../components/Searchbar/Searchbar";
 import SearchPage from "./Recipes/SearchPage";
+import Calculator from "./Calculator";
 import { useEffect, useState } from "react";
+import FavouriteRecipes from "./Recipes/FavouriteRecipes";
+import Profile from "./User/PublicProfile";
 
 function Dashboard() {
   const [searchBarVisible, setSearchBarVisible] = useState(false);
+  
   const navigate = useNavigate();
 
   const toggleSearchBar = () => {
+    //console.log (searchBarVisible)
     setSearchBarVisible(prevState => !prevState)
   }
 
@@ -36,24 +41,12 @@ function Dashboard() {
             <Route path="/recipes/:id" element={<RecipeDetails />} />
             <Route path="/recipes/create" element={<CreateRecipe />} />
             <Route path="/recipes/:id/edit" element={<UpdateRecipe />} />
-            {/* <Route path="/search-recipes/*" element={<SearchPage />} />   */}
+            <Route path="/favourites" element={<FavouriteRecipes />} />
+            <Route path="/favourites/:id" element={<RecipeDetails />} />
+            <Route path="/calculator" element={<Calculator />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
       </div>
-      {/* <div>
-        <AppShell
-          padding="md"
-          styles={(theme) => ({
-            main: {
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[8]
-                  : theme.colors.gray[0],
-            },
-          })}
-        >
-         
-        </AppShell>
-      </div> */}
     </div>
   );
 }

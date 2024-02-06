@@ -1,0 +1,22 @@
+{
+    "volumeToVolume": {
+      "tablespoon": {
+        "cup": 0.0625,
+        "liter": 0.0147868
+      },
+      "cup": {
+        "tablespoon": 16,
+        "liter": 0.236588
+      }
+    },
+    "volumeToWeight": {
+      "flour": {
+        "cup": 120,
+        "tablespoon": 7.5
+      },
+      "sugar": {
+        "cup": 200,
+        "tablespoon": 12.5
+      }
+    }
+  }  

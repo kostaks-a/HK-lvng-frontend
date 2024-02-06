@@ -5,7 +5,7 @@ import { Button, Group } from '@mantine/core'
 
 function LoginForm({handleSubmit, username, password, handleUsername, handlePassword}) {
   return (
-    <>
+    <div>
     <form onSubmit={handleSubmit}>
       <UsernameEntry username={username} handleUsername={handleUsername} />
       <PasswordEntry password={password} handlePassword={handlePassword} />
@@ -13,7 +13,7 @@ function LoginForm({handleSubmit, username, password, handleUsername, handlePass
         <Button type="submit">Submit</Button>
       </Group>
     </form>
-  </>
+  </div>
   )
 }
 

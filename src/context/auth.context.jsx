@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const API_URL = "http://localhost:5005";
 
 const AuthContext = React.createContext();
@@ -12,6 +13,7 @@ function AuthProviderWrapper({children}) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   
+  const navigate = useNavigate();
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -28,14 +30,7 @@ function AuthProviderWrapper({children}) {
           `${API_URL}/auth/verify`, 
           { headers: { Authorization: `Bearer ${storedToken}`} }
         )
-         console.log (response.data)
          const user = response.data;
-        //  const tokenExpiration = response.data.expirationTime;
-        //  const expirationTime = tokenExpiration * 1000;
-        //  setTimeout(() => {
-        //   removeToken();
-        //   setIsLoggedIn(false);
-        // }, expirationTime);
          setIsLoggedIn(true);
          setIsLoading(false);
          setUser(user);        
@@ -45,10 +40,10 @@ function AuthProviderWrapper({children}) {
         setUser(null);     
       }
     } else {
-      //console.log ("no token")
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUser(null);      
+      setUser(null);
+      navigate("/login");
   }
 }
 
@@ -71,7 +66,7 @@ const logOutUser = () => {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user , storeToken , authenticateUser , logOutUser}}>
+    <AuthContext.Provider value={{ isLoggedIn, isLoading, user , setUser, storeToken , authenticateUser , logOutUser}}>
       {children}
     </AuthContext.Provider>
   ) 

@@ -8,7 +8,8 @@ function PrivateWrapper( { children } ) {
   
   const { authenticateUser , isLoggedIn, isLoading } = useContext(AuthContext);
   const location = useLocation();
-  console.log (location)
+  //console.log (location)
+  
  // Verify the existing token if there is one.
   //console.log('authenticating')
   //authenticateUser()

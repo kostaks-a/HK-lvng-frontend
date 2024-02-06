@@ -33,7 +33,7 @@ function CreateUser() {
 
 
   return (
-    <Box maw={340} mx="auto">
+    <Box maw={340} mx="auto" pt={60} mt={50}>
       <h1>Sign up</h1>          
       <SignupForm {...{handleSubmit, username, password, handleUsername, handlePassword}} />
       { errorMessage && <p className="error-message">{errorMessage}</p> }

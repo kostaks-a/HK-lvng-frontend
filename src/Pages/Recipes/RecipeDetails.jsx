@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { Button } from "@mantine/core";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import RecipeCard from "../../components/RecipeCard/RecipeCard";
+import DetailedRecipeCard from "../../components/DetailedRecipeCard/DetailedRecipeCard";
+import { AuthContext } from "../../context/auth.context";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState();
@@ -11,7 +12,7 @@ function RecipeDetails() {
   const { id } = useParams();
   const storedToken = localStorage.getItem("authToken");
   const navigate = useNavigate();
-  
+  const { user } = useContext(AuthContext);
 
   const fetchRecipe = async () => {
     try {
@@ -45,10 +46,7 @@ function RecipeDetails() {
     <div>
       {isLoading ? (
         <div>loading...</div>
-      ) : (<RecipeCard recipe={recipe}  deleteRecipe={deleteRecipe} storedToken={storedToken} />)}
-      {/* <h1>{recipe.name}</h1>
-          <Button component={Link} to={`/recipes/${id}/edit`}>update recipe</Button>
-          <Button onClick={() => deleteRecipe(id)} >delete recipe</Button> */}
+      ) : (<DetailedRecipeCard recipe={recipe}  deleteRecipe={deleteRecipe} storedToken={storedToken} />)}
     </div>
   );
 }

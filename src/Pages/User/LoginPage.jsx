@@ -37,7 +37,7 @@ function LoginPage(props) {
     }
 
   return (
-    <Box maw={340} mx="auto">
+    <Box maw={340} mx="auto" pt={60} mt={50}>
       <h1>Log in</h1>          
       <LoginForm {...{handleSubmit, username, password, handleUsername, handlePassword}} />
       { errorMessage && <p className="error-message">{errorMessage}</p> }

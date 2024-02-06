@@ -1,16 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // RecipeCard.jsx
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './Card.module.css';
 import { Card, Title, Text, Button, CheckIcon } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
+import { AuthContext } from '../../context/auth.context';
 
 const RecipeCard = ({recipe , deleteRecipe , storedToken}) => {
-  const { _id, name, description, ingredients, instructions, image, category } = recipe;
+  const { _id, name, description, ingredients, instructions, image, category , createdBy} = recipe;
   const [checkedIngredients, setCheckedIngredients] = useState([]);
-  
+  const { user } = useContext(AuthContext);
+
+
   const handleIngredientToggle = (ingredient) => {
     if (checkedIngredients.includes(ingredient)) {
       setCheckedIngredients(checkedIngredients.filter((item) => item !== ingredient));
@@ -47,7 +50,7 @@ const RecipeCard = ({recipe , deleteRecipe , storedToken}) => {
               <span className="fas fa-fw fa-share" />
               Share
             </Button>
-            {storedToken && (<>
+            {(user._id === createdBy) && (<>
                 <Button component={Link} to={`./edit`}><span className="fa-solid fa-pen-to-square"/><span>edit recipe</span></Button>
                 <Button onClick={() => deleteRecipe(_id)} ><span className="fa-solid fa-trash-can"/><span>delete recipe</span></Button> 
             </>)
@@ -80,12 +83,10 @@ const RecipeCard = ({recipe , deleteRecipe , storedToken}) => {
             ))}
             </ol>
           </div>
-
-          <footer className={`${styles.notification} ${styles.italic}`}>
+          {/* <footer className={`${styles.notification} ${styles.italic}`}>
             <h2 className="is-size-6">Notes:</h2>
             <p>Do not add cocoa powder until the milk is completely heated to avoid large, unbreakable clumps from forming.</p>
-            {/* Repeat for other notes */}
-          </footer>
+          </footer> */}
         </div>
       </Card.Section>
     </Card>
