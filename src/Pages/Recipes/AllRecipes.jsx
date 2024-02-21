@@ -27,7 +27,7 @@ function AllRecipes({
 
   const fetchPersonalRecipes = async () => {
     try {
-      const response = await axios.get(`http://localhost:5005/recipes/personal`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/personal`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setRecipes(response.data);
@@ -37,7 +37,7 @@ function AllRecipes({
   }
   const fetchRecipes = async () => {
     try {
-      const response = await axios.get("http://localhost:5005/recipes/all", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/all`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       //console.log(response.data);

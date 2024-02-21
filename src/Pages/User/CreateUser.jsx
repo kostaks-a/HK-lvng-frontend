@@ -15,14 +15,12 @@ function CreateUser() {
   const handleUsername = (e) => setUsername(e.target.value)
   const handlePassword = (e) => setPassword(e.target.value)
 
-  const API_URL = "http://localhost:5005";
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const requestBody = { username , password }
     try {
-      const response = await axios.post(`${API_URL}/auth/signup`, requestBody)
-      console.log(response)
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, requestBody)
       navigate("/login")
     } catch (error){
       console.log (error)

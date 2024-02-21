@@ -67,7 +67,7 @@ const RecipeCard = ({recipe , deleteRecipe , storedToken}) => {
               <li key={ingredient.name}>
                 <label>
                   <input type="checkbox" onChange={() => handleIngredientToggle('butter, unsalted')} />
-                  <span>{ingredient.quantity} {ingredient.measurement} of {ingredient.name}</span>
+                  <span>{ingredient.quantity} {ingredient.name}</span>
                   {/* <span className={styles.optional}>, (optional)</span> */}
                 </label>
               </li>

@@ -179,7 +179,7 @@ const handleSubmit = async (e) => {
   formData.append("file", e.target.image.files[0]);
   formData.append("recipeData", JSON.stringify(recipeData));
   try {
-    const response = await axios.put(`http://localhost:5005/recipes/${id}/edit` , formData, {
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/recipes/${id}/edit` , formData, {
       headers: { Authorization: `Bearer ${storedToken}` },
     });
     console.log(response.data);
@@ -192,9 +192,23 @@ const handleSubmit = async (e) => {
 return (
   <div>
     <h1>Update Recipe</h1>
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" , width: 'fit-content'}}>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        width: "fit-content",
+      }}
+    >
       <label htmlFor="name">Name</label>
-      <input type="text" name="name" id="name" value={recipeData.name} onChange={handleChange} />
+      <input
+        type="text"
+        name="name"
+        id="name"
+        value={recipeData.name}
+        onChange={handleChange}
+      />
       <label htmlFor="description">Description</label>
       <input
         type="text"
@@ -208,16 +222,40 @@ return (
 
       {/* Ingredients */}
       <div>
-      <h3>Ingredients</h3>
-      <ul>
-        {recipeData.ingredients.map((ingredient, index) => (
-          <li key={index}><div style={{ display: "flex", flexDirection: "row", gap: "10px" , width: 'fit-content'}}><span>{`${ingredient.quantity} of ${ingredient.name}`}</span><button type="button" onClick={() => handleIngredientDelete(index)}>Delete</button></div></li>
-        ))}
-      </ul>
+        <h3>Ingredients</h3>
+        <ul>
+          {recipeData.ingredients.map((ingredient, index) => (
+            <li key={index}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "10px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{`${ingredient.quantity} ${ingredient.name}`}</span>
+                <button
+                  type="button"
+                  onClick={() => handleIngredientDelete(index)}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      {/* Ingredient input form */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" , width: 'fit-content'}}>
-      <label htmlFor="quantity">Quantity:</label>
+        {/* Ingredient input form */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            width: "fit-content",
+          }}
+        >
+          <label htmlFor="quantity">Quantity:</label>
           <input
             type="text"
             name="quantity"
@@ -233,7 +271,7 @@ return (
             onChange={handleNewIngredientChange}
             placeholder="Ingredient"
           />
-        {/* <label htmlFor="unit">Unit:</label>
+          {/* <label htmlFor="unit">Unit:</label>
         <select name="unit" defaultValue={newIngredient.unit} onChange={handleNewIngredientChange} >
           {measurementUnits.map((unit) => (
             <option key={unit} value={unit}>{unit}</option>
@@ -249,35 +287,55 @@ return (
             placeholder="Custom Unit"
           />
         )} */}
-        <button type="button" onClick={handleNewIngredientSubmit}>Add Ingredient</button>
+          <button type="button" onClick={handleNewIngredientSubmit}>
+            Add Ingredient
+          </button>
+        </div>
       </div>
-    </div>
-
 
       {/* Instructions */}
       <div>
-      <h3>Instructions</h3>
-      <ol style={{ display: "flex", flexDirection: "column", gap: "5px"}}>
-        {recipeData.instructions.map((instruction, index) => (
-          <li key={index}><div style={{ display: "flex", flexDirection: "row", gap: "10px" , width: 'fit-content'}}><span>{instruction}</span><button type="button" onClick={() => handleInstructionDelete(index)}>Delete</button></div></li>
-        ))}
-      </ol>
+        <h3>Instructions</h3>
+        <ol style={{display: "flex", flexDirection: "column", gap: "5px"}}>
+          {recipeData.instructions.map((instruction, index) => (
+            <li key={index}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "10px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{instruction}</span>
+                <button
+                  type="button"
+                  onClick={() => handleInstructionDelete(index)}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ol>
 
-      {/* Instruction input form */}
-      <div>
-        <input
-          type="text"
-          value={newInstruction}
-          onChange={handleNewInstructionChange}
-          placeholder="New Instruction"
-        />
-        <button type="button" onClick={handleNewInstructionSubmit}>Add Instruction</button>
+        {/* Instruction input form */}
+        <div>
+          <input
+            type="text"
+            value={newInstruction}
+            onChange={handleNewInstructionChange}
+            placeholder="New Instruction"
+          />
+          <button type="button" onClick={handleNewInstructionSubmit}>
+            Add Instruction
+          </button>
+        </div>
       </div>
-    </div>
 
-        {/* Categories */}
+      {/* Categories */}
 
-        <fieldset>
+      <fieldset>
         <legend>Cuisines</legend>
         {categories.cuisines.map((cuisine) => (
           <div key={cuisine}>
@@ -292,7 +350,7 @@ return (
           </div>
         ))}
       </fieldset>
-      
+
       <fieldset>
         <legend>Meal Types</legend>
         {categories.mealTypes.map((mealType) => (

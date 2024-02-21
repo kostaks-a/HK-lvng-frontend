@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { TextInput, PasswordInput, Tooltip, Center, Text, rem } from '@mantine/core';
+import { TextInput, Tooltip, Center, Text, rem } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 
 function UsernameEntry({username, handleUsername}) {
@@ -22,7 +21,6 @@ function UsernameEntry({username, handleUsername}) {
       <TextInput
         rightSection={rightSection}
         label="Username:"
-        placeholder="What is your username?"
         value={username}
         onChange={handleUsername}
       />

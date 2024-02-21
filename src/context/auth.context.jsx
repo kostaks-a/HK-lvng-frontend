@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const API_URL = "http://localhost:5005";
 
 const AuthContext = React.createContext();
 
@@ -27,7 +26,7 @@ function AuthProviderWrapper({children}) {
     if (storedToken) {
       try {
         const response = await axios.get(
-          `${API_URL}/auth/verify`, 
+          `${import.meta.env.VITE_API_URL}/auth/verify`, 
           { headers: { Authorization: `Bearer ${storedToken}`} }
         )
          const user = response.data;
@@ -66,7 +65,7 @@ const logOutUser = () => {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user , setUser, storeToken , authenticateUser , logOutUser}}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, isLoading, user , setUser, storeToken , authenticateUser , logOutUser}}>
       {children}
     </AuthContext.Provider>
   ) 

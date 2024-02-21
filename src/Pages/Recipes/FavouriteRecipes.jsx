@@ -12,7 +12,7 @@ function FavouriteRecipes() {
 
  const fetchFavouriteRecipes = async () => {
   try {
-    const response = await axios.get(`http://localhost:5005/recipes/favourites/all`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/favourites/all`, {
       headers: { Authorization: `Bearer ${storedToken}` },
     });
     console.log(response.data);

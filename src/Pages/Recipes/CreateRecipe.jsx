@@ -140,7 +140,7 @@ function CreateRecipe() {
     formData.append("file", e.target.image.files[0]);
     formData.append("recipeData", JSON.stringify(recipeData));
     try {
-      const response = await axios.post("http://localhost:5005/recipes/create", formData ,{
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/recipes/create`, formData ,{
         headers: { Authorization: `Bearer ${storedToken}` }, "Content-Type": "multipart/form-data" 
       });
       console.log(response.data);
@@ -172,7 +172,7 @@ function CreateRecipe() {
         <h4>Ingredients List:</h4>
         <ul>
           {recipeData.ingredients.map((ingredient, index) => (
-            <li key={index}><span>{`${ingredient.quantity} of ${ingredient.name}`}</span><button type="button" onClick={() => handleIngredientDelete(index)}>Delete</button></li>
+            <li key={index}><span>{`${ingredient.quantity} ${ingredient.name}`}</span><button type="button" onClick={() => handleIngredientDelete(index)}>Delete</button></li>
           ))}
         </ul>
 

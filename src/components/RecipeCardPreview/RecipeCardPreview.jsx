@@ -16,11 +16,13 @@ export default function RecipeCardPreview({recipe}) {
   const storedToken = localStorage.getItem("authToken");
   const [isFavourite, setIsFavourite] = useState(false);
 
+  console.log (user)
 
   useEffect(() => {
+    if (user?.favourites.length > 0){
     if (user?.favourites.includes(_id)) {
       setIsFavourite(true);
-    }
+    }}
   },[user])
 
   const tags = category?.cuisines.concat(category?.mealTypes).map((tag) => (
@@ -31,7 +33,7 @@ export default function RecipeCardPreview({recipe}) {
 
 const addRecipeToFavourites = async () => {
   try {
-    const response = await axios.get(`http://localhost:5005/recipes/${_id}/save`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/${_id}/save`, {
       headers: { Authorization: `Bearer ${storedToken}` },
     });
     console.log(response.data);
@@ -47,7 +49,7 @@ const addRecipeToFavourites = async () => {
 
 const removeRecipeFromFavourites = async () => {
   try {
-    const response = await axios.get(`http://localhost:5005/recipes/${_id}/remove`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/${_id}/remove`, {
       headers: { Authorization: `Bearer ${storedToken}` },
     });
     console.log(response.data);

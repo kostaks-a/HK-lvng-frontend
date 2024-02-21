@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Carousel } from '@mantine/carousel';
+import RecipeCardPreview from "../../components/RecipeCardPreview/RecipeCardPreview";
+import { Image } from "@mantine/core";
 
 function PublicProfile() {
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
@@ -17,55 +20,60 @@ function PublicProfile() {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5005/user/profile/${profileUsername}`,
+        `${import.meta.env.VITE_API_URL}/user/profile/${profileUsername}`,
         {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
       );
-      console.log(response.data);
+      console.log(response.data.creations);
+      setFavouriteRecipes(response.data.favourites);
+      setCreatedRecipes(response.data.creations);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
-  const fetchFavouriteRecipes = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5005/recipes/favourites/all`,
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      );
-      console.log(response.data);
-      setFavouriteRecipes(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchCreatedRecipes = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5005/recipes/creations/all`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
-      console.log(response.data);
-      setCreatedRecipes(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
-    //fetchFavouriteRecipes();
-    //fetchCreatedRecipes();
     fetchProfile();
-    setIsLoading(false);
+    console.log(favouriteRecipes)
+    console.log(createdRecipes)
   }, []);
 
 
 
+  return (
+    <div style={{margin:"30px", padding: '5px' }}>
+      <h1>{profileUsername}</h1>
+      {isLoading ? <p>Loading...</p> : (
+      <div style={{marginLeft: '10px' , marginRight: '10px'}}>
+      <h2>Favourites:</h2>
+      <Carousel  autosize="true" slideSize="34%" loop dragFree slideGap="md">
+     {favouriteRecipes.map(recipe => 
+      <Carousel.Slide key={recipe._id}>
+        <h3>{recipe.name}</h3>
+        <Link to={`/recipes/${recipe._id}`}>
+          <Image src={recipe.image} />
+        </Link>          
+        </Carousel.Slide>
+      )} 
+      </Carousel>
 
-
-  return <div>Profile</div>;
+      <h2>Creations:</h2>
+      <Carousel  autosize="true" slideSize="34%" loop dragFree slideGap="md">
+      {createdRecipes.map(recipe =>
+        <Carousel.Slide key={recipe._id}>
+        <h3>{recipe.name}</h3>
+        <Link to={`/recipes/${recipe._id}`}>
+          <Image src={recipe.image} />
+        </Link>          
+        </Carousel.Slide>
+      )}
+      </Carousel>
+      </div>)}
+          
+    </div>
+  );
 }
 
 export default PublicProfile;

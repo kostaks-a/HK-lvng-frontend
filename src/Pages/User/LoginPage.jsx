@@ -6,8 +6,6 @@ import { AuthContext } from "../../context/auth.context";
 import LoginForm from "../../components/LoginForm";
 import { Box, Button } from "@mantine/core";
 
-const API_URL = "http://localhost:5005";
-
 
 
 function LoginPage(props) {
@@ -26,11 +24,11 @@ function LoginPage(props) {
       e.preventDefault();
       try {
         const requestBody = { username, password };
-        const response = await axios.post(`${API_URL}/auth/login`, requestBody)
-        console.log('JWT token', response.data.authToken );
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, requestBody)
+        //console.log('JWT token', response.data.authToken );
         storeToken(response.data.authToken); 
         authenticateUser();
-        navigate('/')
+        navigate('/Dashboard')
       } catch (error) {
         setErrorMessage(error.response.data.message)        
       }

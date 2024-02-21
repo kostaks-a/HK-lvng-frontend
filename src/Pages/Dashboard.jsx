@@ -13,7 +13,8 @@ import SearchPage from "./Recipes/SearchPage";
 import Calculator from "./Calculator";
 import { useEffect, useState } from "react";
 import FavouriteRecipes from "./Recipes/FavouriteRecipes";
-import Profile from "./User/PublicProfile";
+import PrivateProfile from "./User/PrivateProfile";
+import UpdateUser from "./User/UpdateUser";
 
 function Dashboard() {
   const [searchBarVisible, setSearchBarVisible] = useState(false);
@@ -44,7 +45,8 @@ function Dashboard() {
             <Route path="/favourites" element={<FavouriteRecipes />} />
             <Route path="/favourites/:id" element={<RecipeDetails />} />
             <Route path="/calculator" element={<Calculator />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={<PrivateProfile />} />
+            <Route path='/profile/edit' element={<UpdateUser />} />
           </Routes>
       </div>
     </div>

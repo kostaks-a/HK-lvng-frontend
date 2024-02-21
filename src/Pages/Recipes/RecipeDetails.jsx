@@ -16,7 +16,7 @@ function RecipeDetails() {
 
   const fetchRecipe = async () => {
     try {
-      const response = await axios.get(`http://localhost:5005/recipes/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/${id}`);
       console.log(response.data);
       setRecipe(response.data);
       setIsLoading(false);
@@ -32,7 +32,7 @@ function RecipeDetails() {
 
   const deleteRecipe = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5005/recipes/${id}/delete`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/${id}/delete`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       console.log(response.data);
