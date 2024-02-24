@@ -16,7 +16,6 @@ export default function RecipeCardPreview({recipe}) {
   const storedToken = localStorage.getItem("authToken");
   const [isFavourite, setIsFavourite] = useState(false);
 
-  console.log (user)
 
   useEffect(() => {
     if (user?.favourites.length > 0){
