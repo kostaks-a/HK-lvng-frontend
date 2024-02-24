@@ -32,7 +32,7 @@ export default function RecipeCardPreview({recipe}) {
 
 const addRecipeToFavourites = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/${_id}/save`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/recipes/${_id}/save`, {
       headers: { Authorization: `Bearer ${storedToken}` },
     });
     console.log(response.data);
