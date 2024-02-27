@@ -37,8 +37,7 @@ const addRecipeToFavourites = async () => {
     });
     console.log(response.data);
     const favourites = response.data.favourites
-    setUser(previousUser => ({ ...previousUser, favourites })) /*...prevData, { favourites: favourites } */
-    console.log (user)
+    setUser(previousUser => ({ ...previousUser, favourites }))
     setIsFavourite(true)
   } catch (error) {
     console.log(error)
@@ -54,7 +53,6 @@ const removeRecipeFromFavourites = async () => {
     console.log(response.data);
     const favourites = response.data.favourites
     setUser(previousUser => ({ ...previousUser, favourites }))
-    console.log (user)
     setIsFavourite(false)
   } catch (error) {
     console.log(error);

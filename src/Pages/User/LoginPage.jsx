@@ -15,7 +15,7 @@ function LoginPage(props) {
 
     const navigate = useNavigate();
     
-    const { storeToken , authenticateUser} = useContext(AuthContext);
+    const { storeToken , authenticateUser , setIsLoggedIn} = useContext(AuthContext);
 
     const handleUsername = (e) => setUsername(e.target.value);
     const handlePassword = (e) => setPassword(e.target.value);
@@ -26,9 +26,10 @@ function LoginPage(props) {
         const requestBody = { username, password };
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, requestBody)
         //console.log('JWT token', response.data.authToken );
-        storeToken(response.data.authToken); 
+        storeToken(response.data.authToken);
+        setIsLoggedIn(true); 
         authenticateUser();
-        navigate('/Dashboard')
+        navigate('/Dashboard/recipes')
       } catch (error) {
         setErrorMessage(error.response.data.message)        
       }

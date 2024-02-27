@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import classes from './Navbar.module.css';
 
 function NavbarLink({ icon: Icon, label, active, onClick , path }) {
-    console.log ()
     return (
       <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
       <Link to={path}>

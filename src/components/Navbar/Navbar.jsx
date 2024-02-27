@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Center, Tooltip, UnstyledButton, Stack, rem } from '@mantine/core';
 import {
@@ -24,22 +24,30 @@ import {
 import { MantineLogo } from '@mantinex/mantine-logo';
 import classes from './Navbar.module.css';
 import NavbarLink from './NavbarLink';
+import { AuthContext } from '../../context/auth.context';
 
 
 
 function Navbar( {toggleSearchBar} ) {
   const [active, setActive] = useState(2);
 
+  const { logOutUser } = useContext(AuthContext);
+
 
   const handleSearchBarToggle = (label) => {
     if (label.includes('Search')) {
       toggleSearchBar();
     }
-    
+  };
+
+
+  const handleLogout = () => {
+      console.log('Logout');
+      logOutUser();    
   };
 
   const linkData = [
-    { icon: IconSearch, label: 'Search recipes' , onClick: handleSearchBarToggle },
+    { icon: IconSearch, label: 'Search recipes' },
     { icon: IconMushroomFilled, label: 'Create recipe' ,path:'./recipes/create'},
     { icon: IconBowl, label: 'Recipes' , path:'./recipes'},
     { icon: IconPizza, label: 'Favourites' , path:'./favourites'},
@@ -72,11 +80,11 @@ function Navbar( {toggleSearchBar} ) {
           {links}
         </Stack>
       </div>
-
-      <Stack justify="center" gap={0}>
-        <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
-        <NavbarLink icon={IconLogout} label="Logout" />
-      </Stack>
+            
+      <Stack justify="space-around" gap={2}>
+        {/* <NavbarLink icon={IconSwitchHorizontal} label="Change account" /> */}  
+        {/* <NavbarLink icon={IconLogout} active={true} onClick={()=>{handleLogout()}} label="Logout" /> */}
+      </Stack>      
     </nav>
   );
 }
